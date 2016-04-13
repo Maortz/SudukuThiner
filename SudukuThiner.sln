@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Thiner", "Thiner\Thiner.csproj", "{CA2838F9-B457-4A63-9249-CAD54AF39641}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PL", "PL\PL.csproj", "{AB073CA6-764A-4CFF-955F-E69F8B06E404}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CA2838F9-B457-4A63-9249-CAD54AF39641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA2838F9-B457-4A63-9249-CAD54AF39641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA2838F9-B457-4A63-9249-CAD54AF39641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA2838F9-B457-4A63-9249-CAD54AF39641}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AB073CA6-764A-4CFF-955F-E69F8B06E404}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB073CA6-764A-4CFF-955F-E69F8B06E404}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB073CA6-764A-4CFF-955F-E69F8B06E404}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB073CA6-764A-4CFF-955F-E69F8B06E404}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
