@@ -14,7 +14,7 @@ namespace Thiner
         // y  Table[x,y]
         // y
 
-        public void InitArray()
+        private void InitArray()
         {
             for (int x = 0; x < 9; x++)
                 for (int y = 0; y < 9; y++)
@@ -99,8 +99,18 @@ namespace Thiner
             return true;
         }
 
+        public void Print(Action<Cell> PrintOneCell)
+        {
+            for (int y = 0; y < 9; y++)
+                for (int x = 0; x < 9; x++)
+                    PrintOneCell(table[x,y]);
+        }
+
         public bool Solve()
         {
+            Clear();
+            //
+
             return false;
         }
     }
