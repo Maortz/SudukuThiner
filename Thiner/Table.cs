@@ -9,7 +9,10 @@ namespace Thiner
     class Table
     {
         Cell[,] table = new Cell[9,9];
-        //
+        // 0 x x x x
+        // y
+        // y  Table[x,y]
+        // y
 
         public Table(Cell[] cell_array)
         {
@@ -33,7 +36,11 @@ namespace Thiner
 
         public Cell GetPrev(Position pos)
         {
-            throw new Exception("Unimpl");
+            if (pos.X > 0)
+                return table[pos.X - 1, pos.Y];
+            if (pos.Y > 0)
+                return table[8, pos.Y - 1];
+            throw new Exception("Cannot Get Prev");
         }
 
         public Cell GetNext(Position pos)
