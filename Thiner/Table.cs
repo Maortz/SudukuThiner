@@ -110,8 +110,78 @@ namespace Thiner
         {
             Clear();
             //
-
+            StepState state;
+            // WARRNING: Possible Exception, but its unlikly to get whole solved suduku...
+            Cell traveler = GetFirstEditable();
+            do
+            {
+                state = Step(ref traveler);
+            } while (state == StepState.Running);
+            if (state == StepState.Finish)
+                return true;
             return false;
         }
+
+        private Cell GetFirstEditable()
+        {
+            Cell traveler = table[0, 0];
+            try
+            {
+                while (traveler.IsReadonly)
+                    traveler = GetNext(traveler);
+                return traveler;
+            }
+            catch(Exception)
+            {
+                return table[8, 8];
+            }
+        }
+
+        private StepState Step(ref Cell traveler)
+        {
+            bool ok = false;
+            while (traveler.Advance())
+            {
+                if (IsValid(traveler))
+                {
+                    ok = true;
+                    break;
+                }
+            }
+            try
+            {
+                if (ok)
+                {
+                    do
+                    {
+                        traveler = GetNext(traveler);
+                    } while (traveler.IsReadonly);
+                }
+                else
+                    do
+                    {
+                        traveler = GetPrev(traveler);
+                    } while (traveler.IsReadonly);
+            }
+            catch(Exception exc)
+            {
+                switch (exc.Message)
+                {
+                    case "Underflow":
+                        return StepState.Unsolvable;
+                    case "Oferflow":
+                        return StepState.Finish;
+                    default:
+                        throw new Exception("Unexpected exception");
+                }
+            }
+            return StepState.Running;
+        }
+
+        enum StepState
+        {
+            Finish, Unsolvable, Running 
+        }
+
     }
 }
