@@ -42,27 +42,53 @@ namespace Thiner
             }
         }
 
-        public Cell GetPrev(Position pos)
+        public Cell GetPrev(Cell cell)
         {
-            if (pos.X > 0)
-                return table[pos.X - 1, pos.Y];
-            if (pos.Y > 0)
-                return table[8, pos.Y - 1];
+            if (cell.Pos.X > 0)
+                return table[cell.Pos.X - 1, cell.Pos.Y];
+            if (cell.Pos.Y > 0)
+                return table[8, cell.Pos.Y - 1];
             throw new Exception("Cannot Get Prev");
         }
 
-        public Cell GetNext(Position pos)
+        public Cell GetNext(Cell cell)
         {
-            if (pos.X < 8)
-                return table[pos.X + 1, pos.Y];
-            if (pos.Y < 8)
-                return table[0, pos.Y + 1];
+            if (cell.Pos.X < 8)
+                return table[cell.Pos.X + 1, cell.Pos.Y];
+            if (cell.Pos.Y < 8)
+                return table[0, cell.Pos.Y + 1];
             throw new Exception("Cannot Get Next");
+        }
+
+        private Cell GetLeftCorner(Cell cell)
+        {
+            int x = (cell.Pos.X / 3 ) * 3;
+            int y = (cell.Pos.Y / 3) * 3;
+            return table[x, y];
         }
 
         public bool IsValid(Cell cell)
         {
-            throw new Exception("Unimpl");
+            for (int i = 0; i < 9; i++)
+            {
+                if (cell.Pos.X != i)
+                    if (cell.Num == table[i, cell.Pos.Y].Num)
+                        return false;
+                if (cell.Pos.Y != i)
+                    if (cell.Num == table[cell.Pos.X, i].Num)
+                        return false;
+            }
+            Cell leftCorner = GetLeftCorner(cell);
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    if (i != cell.Pos.X || j!= cell.Pos.Y)
+                        if (table[leftCorner.Pos.X + i, leftCorner.Pos.Y + j].Num == cell.Num)
+                            return false;
+                }
+            }
+            return true;
         }
     }
 }
