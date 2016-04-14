@@ -21,12 +21,22 @@ namespace Thiner
                     table[x, y] = new Cell(x, y);
         }
 
-        public void Clear()
+        public void ClearEditable()
         {
             for (int x = 0; x < 9; x++)
                 for (int y = 0; y < 9; y++)
                     if (!table[x, y].IsReadonly)
                         table[x, y].Num = 0;
+        }
+
+        public void ClearAll()
+        {
+            for (int x = 0; x < 9; x++)
+                for (int y = 0; y < 9; y++)
+                {
+                    table[x, y].Num = 0;
+                    table[x, y].IsReadonly = false;
+                }
         }
 
         public void Read(Cell[] cell_array)
@@ -48,6 +58,16 @@ namespace Thiner
                         break;
                 }
             }
+        }
+
+        public void Read(Cell[,] cell_matrix)
+        {
+            for (int y = 0; y < 9; y++)
+                for (int x = 0; x < 9; x++)
+                {
+                    table[x, y].Num = cell_matrix[x, y].Num;
+                    table[x, y].IsReadonly = cell_matrix[x, y].IsReadonly;
+                }
         }
 
         public Table()
@@ -113,7 +133,7 @@ namespace Thiner
 
         public bool Solve()
         {
-            Clear();
+            ClearEditable();
             //
             StepState state;
             // WARRNING: Possible Exception, but its unlikly to get whole solved suduku...
