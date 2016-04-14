@@ -45,7 +45,11 @@ namespace Thiner
 
         public Cell GetNext(Position pos)
         {
-            throw new Exception("Unimpl");
+            if (pos.X < 8)
+                return table[pos.X + 1, pos.Y];
+            if (pos.Y < 8)
+                return table[0, pos.Y + 1];
+            throw new Exception("Cannot Get Next");
         }
 
         public bool IsValid(Cell cell)
