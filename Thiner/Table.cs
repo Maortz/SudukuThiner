@@ -8,7 +8,7 @@ namespace Thiner
 {
     class Table
     {
-        Cell[,] table = new Cell[9,9];
+        private Cell[,] table = new Cell[9,9];
         // 0 x x x x
         // y
         // y  Table[x,y]
@@ -19,6 +19,14 @@ namespace Thiner
             for (int x = 0; x < 9; x++)
                 for (int y = 0; y < 9; y++)
                     table[x, y] = new Cell(x, y);
+        }
+
+        public void Clear()
+        {
+            for (int x = 0; x < 9; x++)
+                for (int y = 0; y < 9; y++)
+                    if (!table[x, y].IsReadonly)
+                        table[x, y].Num = 0;
         }
 
         public Table(Cell[] cell_array)
@@ -48,7 +56,7 @@ namespace Thiner
                 return table[cell.Pos.X - 1, cell.Pos.Y];
             if (cell.Pos.Y > 0)
                 return table[8, cell.Pos.Y - 1];
-            throw new Exception("Cannot Get Prev");
+            throw new Exception("Underflow");
         }
 
         public Cell GetNext(Cell cell)
@@ -57,7 +65,7 @@ namespace Thiner
                 return table[cell.Pos.X + 1, cell.Pos.Y];
             if (cell.Pos.Y < 8)
                 return table[0, cell.Pos.Y + 1];
-            throw new Exception("Cannot Get Next");
+            throw new Exception("Overflow");
         }
 
         private Cell GetLeftCorner(Cell cell)
@@ -89,6 +97,11 @@ namespace Thiner
                 }
             }
             return true;
+        }
+
+        public bool Solve()
+        {
+            return false;
         }
     }
 }
