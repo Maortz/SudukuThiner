@@ -14,8 +14,16 @@ namespace Thiner
         // y  Table[x,y]
         // y
 
+        public void InitArray()
+        {
+            for (int x = 0; x < 9; x++)
+                for (int y = 0; y < 9; y++)
+                    table[x, y] = new Cell(x, y);
+        }
+
         public Table(Cell[] cell_array)
         {
+            InitArray();
             int count = 0;
             int row = 0, col = 0;
             while (count < cell_array.Length)
