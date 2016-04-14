@@ -29,7 +29,7 @@ namespace Thiner
                         table[x, y].Num = 0;
         }
 
-        public Table(Cell[] cell_array)
+        public void Read(Cell[] cell_array)
         {
             InitArray();
             int count = 0;
@@ -48,6 +48,11 @@ namespace Thiner
                         break;
                 }
             }
+        }
+
+        public Table()
+        {
+            InitArray();
         }
 
         public Cell GetPrev(Cell cell)
@@ -125,16 +130,9 @@ namespace Thiner
         private Cell GetFirstEditable()
         {
             Cell traveler = table[0, 0];
-            try
-            {
-                while (traveler.IsReadonly)
-                    traveler = GetNext(traveler);
-                return traveler;
-            }
-            catch(Exception)
-            {
-                return table[8, 8];
-            }
+            while (traveler.IsReadonly)
+                traveler = GetNext(traveler);
+            return traveler;
         }
 
         private StepState Step(ref Cell traveler)
