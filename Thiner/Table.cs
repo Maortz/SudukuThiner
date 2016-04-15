@@ -14,7 +14,7 @@ namespace Thiner
         // y  Table[x,y]
         // y
 
-        private void InitArray()
+        private static void InitTable(Cell[,] table)
         {
             for (int x = 0; x < 9; x++)
                 for (int y = 0; y < 9; y++)
@@ -41,7 +41,6 @@ namespace Thiner
 
         public void Read(Cell[] cell_array)
         {
-            InitArray();
             int count = 0;
             int row = 0, col = 0;
             while (count < cell_array.Length)
@@ -72,7 +71,7 @@ namespace Thiner
 
         public Table()
         {
-            InitArray();
+            InitTable(table);
         }
 
         public Cell GetPrev(Cell cell)
@@ -145,6 +144,17 @@ namespace Thiner
             if (state == StepState.Finish)
                 return true;
             return false;
+        }
+
+        public void CopyTo(ref Cell[,] another)
+        {
+            InitTable(another);
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                {
+                    another[i, j].Num = table[i, j].Num;
+                    another[i, j].IsReadonly = table[i, j].IsReadonly;
+                }
         }
 
         private Cell GetFirstEditable()

@@ -8,9 +8,21 @@ namespace Thiner
 {
     class SudukuThiner
     {
-        bool Read()
+        private Table suduku;
+
+
+        public void Read(Cell[,] matrix)
         {
-            return false;
+            suduku.Read(matrix);
         }
+
+        public void Run()
+        {
+            bool success = suduku.Solve();
+            if (!success)
+                throw new Exception("Error");
+
+        }
+
     }
 }
