@@ -8,8 +8,9 @@ namespace Thiner
 {
     class SudukuThiner
     {
-        private Table suduku;
-
+        private Table suduku = new Table();
+        private Cell[,] solved = new Cell[9,9];
+        private List<Cell> removed_cells = new List<Cell>();
 
         public void Read(Cell[,] matrix)
         {
@@ -18,10 +19,15 @@ namespace Thiner
 
         public void Run()
         {
-            bool success = suduku.Solve();
-            if (!success)
-                throw new Exception("Error");
+            GetSolvedSuduku();
 
+        }
+
+        private void GetSolvedSuduku()
+        {
+            if (!suduku.Solve())
+                throw new Exception("Error");
+            suduku.CopyTo(ref solved);
         }
 
     }

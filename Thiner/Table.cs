@@ -211,5 +211,22 @@ namespace Thiner
             Finish, Unsolvable, Running 
         }
 
+        public bool CompareTo(Table another)
+        {
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                    if (table[i, j].Num != another.table[i, j].Num)
+                        return false;
+            return true;
+        }
+
+        public bool CompareTo(Cell[,] another)
+        {
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                    if (table[i, j].Num != another[i, j].Num)
+                        return false;
+            return true;
+        }
     }
 }
