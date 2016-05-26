@@ -140,14 +140,13 @@ namespace Thiner
                     PrintOneCell(table[x,y]);
         }
 
-        public void CopyTo(ref Cell[,] another)
+        public void CopyTo(ref Table another)
         {
-            InitTable(another);
             for (int i = 0; i < 9; i++)
                 for (int j = 0; j < 9; j++)
                 {
-                    another[i, j].Num = table[i, j].Num;
-                    another[i, j].IsReadonly = table[i, j].IsReadonly;
+                    another.table[i, j].Num = table[i, j].Num;
+                    another.table[i, j].IsReadonly = table[i, j].IsReadonly;
                 }
         }
 
@@ -155,7 +154,9 @@ namespace Thiner
         {
             for (int i = 0; i < 9; i++)
                 for (int j = 0; j < 9; j++)
-                    if (table[i, j].Num != another.table[i, j].Num)
+                    if (table[i, j].Num != another.table[i, j].Num &&
+                        table[i, j].Pos.X == another.table[i, j].Pos.X &&
+                        table[i, j].Pos.Y == another.table[i, j].Pos.Y)
                         return false;
             return true;
         }
@@ -164,7 +165,9 @@ namespace Thiner
         {
             for (int i = 0; i < 9; i++)
                 for (int j = 0; j < 9; j++)
-                    if (table[i, j].Num != another[i, j].Num)
+                    if (table[i, j].Num != another[i, j].Num &&
+                        table[i, j].Pos.X == another[i, j].Pos.X &&
+                        table[i, j].Pos.Y == another[i, j].Pos.Y)
                         return false;
             return true;
         }
