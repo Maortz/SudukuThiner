@@ -19,14 +19,14 @@ namespace Thiner
 
         public void Run()
         {
+            if (!Suduku.IsSolvable(suduku))
+                return;
             to_removed_cells = suduku.GetTableNumbersAsList();
-            GetSolvedSuduku();
-            Cell i;
-            while (to_removed_cells.Count > 0)
-            {
-                i = to_removed_cells.First();
+            int DEGREES = to_removed_cells.Count;
+            //
 
-            }
+
+            
         }
 
         private void GetSolvedSuduku()
