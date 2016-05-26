@@ -21,6 +21,16 @@ namespace Thiner
                     table[x, y] = new Cell(x, y);
         }
 
+        public List<Cell> GetTableAsList()
+        {
+            List<Cell> array = new List<Cell>();
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                    if(table[i,j].Num != 0)
+                        array.Add(table[i, j]);
+            return array;
+        }
+
         public void ClearEditable()
         {
             for (int x = 0; x < 9; x++)
@@ -130,22 +140,6 @@ namespace Thiner
                     PrintOneCell(table[x,y]);
         }
 
-        public bool Solve()
-        {
-            ClearEditable();
-            //
-            StepState state;
-            // WARRNING: Possible Exception, but its unlikly to get whole solved suduku...
-            Cell traveler = GetFirstEditable();
-            do
-            {
-                state = Step(ref traveler);
-            } while (state == StepState.Running);
-            if (state == StepState.Finish)
-                return true;
-            return false;
-        }
-
         public void CopyTo(ref Cell[,] another)
         {
             InitTable(another);
@@ -155,60 +149,6 @@ namespace Thiner
                     another[i, j].Num = table[i, j].Num;
                     another[i, j].IsReadonly = table[i, j].IsReadonly;
                 }
-        }
-
-        private Cell GetFirstEditable()
-        {
-            Cell traveler = table[0, 0];
-            while (traveler.IsReadonly)
-                traveler = GetNext(traveler);
-            return traveler;
-        }
-
-        private StepState Step(ref Cell traveler)
-        {
-            bool ok = false;
-            while (traveler.Advance())
-            {
-                if (IsValid(traveler))
-                {
-                    ok = true;
-                    break;
-                }
-            }
-            try
-            {
-                if (ok)
-                {
-                    do
-                    {
-                        traveler = GetNext(traveler);
-                    } while (traveler.IsReadonly);
-                }
-                else
-                    do
-                    {
-                        traveler = GetPrev(traveler);
-                    } while (traveler.IsReadonly);
-            }
-            catch(Exception exc)
-            {
-                switch (exc.Message)
-                {
-                    case "Underflow":
-                        return StepState.Unsolvable;
-                    case "Oferflow":
-                        return StepState.Finish;
-                    default:
-                        throw new Exception("Unexpected exception");
-                }
-            }
-            return StepState.Running;
-        }
-
-        enum StepState
-        {
-            Finish, Unsolvable, Running 
         }
 
         public bool CompareTo(Table another)

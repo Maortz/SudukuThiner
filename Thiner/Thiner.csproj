@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Cell.cs" />
     <Compile Include="Position.cs" />
+    <Compile Include="Suduku.cs" />
     <Compile Include="SudukuThiner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table.cs" />

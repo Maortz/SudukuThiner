@@ -10,7 +10,7 @@ namespace Thiner
     {
         private Table suduku = new Table();
         private Cell[,] solved = new Cell[9,9];
-        private List<Cell> removed_cells = new List<Cell>();
+        private List<Cell> to_removed_cells = new List<Cell>();
 
         public void Read(Cell[,] matrix)
         {
@@ -19,8 +19,14 @@ namespace Thiner
 
         public void Run()
         {
+            to_removed_cells = suduku.GetTableAsList();
             GetSolvedSuduku();
+            Cell i;
+            while (to_removed_cells.Count > 0)
+            {
+                i = to_removed_cells.First();
 
+            }
         }
 
         private void GetSolvedSuduku()
@@ -28,6 +34,7 @@ namespace Thiner
             if (!suduku.Solve())
                 throw new Exception("Error");
             suduku.CopyTo(ref solved);
+            suduku.ClearEditable();
         }
 
     }
