@@ -12,9 +12,26 @@ namespace Thiner
         private List<Cell> to_removed_cells;
         private int[,] matrix;
 
+        public SudukuThiner(Cell[,] matrix)
+        {
+            Read(matrix);
+        }
+
         public void Read(Cell[,] matrix)
         {
             suduku.Read(matrix);
+        }
+
+        public void Print()
+        {
+            Action<Cell> p = (Cell c) =>
+                {
+                    if (c.Num == 0)
+                        Console.WriteLine(" ");
+                    else
+                        Console.WriteLine(c.Num);
+                };
+            suduku.Print(p);
         }
 
         public void Run()
@@ -25,15 +42,33 @@ namespace Thiner
             int DEGREES = to_removed_cells.Count;
             matrix = new int[DEGREES, DEGREES];
             InitMatrix(DEGREES);
-            CalcMatrix(DEGREES);
-            // Do something with this matrix...
-            
+            int last_row = CalcMatrix(DEGREES);
+            RemoveCells(last_row);
         }
 
-        private void CalcMatrix(int DEGREES)
+        private void RemoveCells(int last_row)
+        {
+            List<int> to_remove_indexes = GetLitCells(last_row);
+            foreach (var index in to_remove_indexes)
+            {
+                to_removed_cells.RemoveAt(index);
+            }
+            foreach (var cell in to_removed_cells)
+            {
+                suduku.ClearCell(cell.Pos);
+            }
+        }
+
+        private List<int> GetLitCells(int last_row)
+        {
+            throw new NotImplementedException();
+        }
+
+        private int CalcMatrix(int DEGREES)
         {
             List<List<int>> comb;
-            for (int d = 1; d <= DEGREES; d++)
+            int d;
+            for (d = 1; d <= DEGREES; d++)
             {
                 comb = GetCombinationbyIndex(to_removed_cells, d);
                 foreach (var c in comb)
@@ -46,9 +81,13 @@ namespace Thiner
                         }
                     }
                 }
-                if (!IsAnyDiffBetweenDegrees(d))
+                if (!IsAnyDiffBetweenDegrees(d - 1))
+                {
+                    d++;
                     break;
+                }
             }
+            return d - 2;
         }
 
         private void InitMatrix(int len)
