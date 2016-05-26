@@ -89,7 +89,7 @@ namespace Thiner
 
         private static Cell GetFirstEditable(Table table)
         {
-            Cell traveler = table.GetTableAsList()[0];
+            Cell traveler = table.GetCellInPos(new Position { X = 0, Y = 0 });
             while (traveler.IsReadonly)
                 traveler = table.GetNext(traveler);
             return traveler;
@@ -97,8 +97,7 @@ namespace Thiner
 
         private static Cell GetLastEditable(Table table)
         {
-            var list = table.GetTableAsList();
-            Cell traveler = list[list.Count - 1];
+            Cell traveler = table.GetCellInPos(new Position { X = 8, Y = 8 });
             while (traveler.IsReadonly)
                 traveler = table.GetPrev(traveler);
             return traveler;

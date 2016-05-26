@@ -14,8 +14,7 @@ namespace Thiner
 
         public Cell(int x, int y)
         {
-            Num = 0;
-            IsReadonly = false;
+            Clear();
             Pos = new Position { X = x, Y = y };
         }
 
@@ -30,6 +29,17 @@ namespace Thiner
                 return false;
             }
             return true;
+        }
+
+        public void Clear()
+        {
+            Num = 0;
+            IsReadonly = false;
+        }
+
+        public void ClearNumber()
+        {
+            Num = 0;
         }
     }
 }

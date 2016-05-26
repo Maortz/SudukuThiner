@@ -19,7 +19,7 @@ namespace Thiner
 
         public void Run()
         {
-            to_removed_cells = suduku.GetTableAsList();
+            to_removed_cells = suduku.GetTableNumbersAsList();
             GetSolvedSuduku();
             Cell i;
             while (to_removed_cells.Count > 0)

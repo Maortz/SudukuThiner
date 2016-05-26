@@ -21,7 +21,7 @@ namespace Thiner
                     table[x, y] = new Cell(x, y);
         }
 
-        public List<Cell> GetTableAsList()
+        public List<Cell> GetTableNumbersAsList()
         {
             List<Cell> array = new List<Cell>();
             for (int i = 0; i < 9; i++)
@@ -31,22 +31,24 @@ namespace Thiner
             return array;
         }
 
+        public void ClearCell(Position pos)
+        {
+            table[pos.X, pos.Y].Clear();
+        }
+
         public void ClearEditable()
         {
             for (int x = 0; x < 9; x++)
                 for (int y = 0; y < 9; y++)
                     if (!table[x, y].IsReadonly)
-                        table[x, y].Num = 0;
+                        table[x, y].ClearNumber();
         }
 
         public void ClearAll()
         {
             for (int x = 0; x < 9; x++)
                 for (int y = 0; y < 9; y++)
-                {
-                    table[x, y].Num = 0;
-                    table[x, y].IsReadonly = false;
-                }
+                    table[x, y].Clear();
         }
 
         public void Read(Cell[] cell_array)
@@ -150,13 +152,16 @@ namespace Thiner
                 }
         }
 
+        public Cell GetCellInPos(Position pos)
+        {
+            return table[pos.X, pos.Y];
+        }
+
         public bool CompareTo(Table another)
         {
             for (int i = 0; i < 9; i++)
                 for (int j = 0; j < 9; j++)
-                    if (table[i, j].Num != another.table[i, j].Num &&
-                        table[i, j].Pos.X == another.table[i, j].Pos.X &&
-                        table[i, j].Pos.Y == another.table[i, j].Pos.Y)
+                    if (table[i, j].Num != another.table[i, j].Num)
                         return false;
             return true;
         }
@@ -165,9 +170,7 @@ namespace Thiner
         {
             for (int i = 0; i < 9; i++)
                 for (int j = 0; j < 9; j++)
-                    if (table[i, j].Num != another[i, j].Num &&
-                        table[i, j].Pos.X == another[i, j].Pos.X &&
-                        table[i, j].Pos.Y == another[i, j].Pos.Y)
+                    if (table[i, j].Num != another[i, j].Num)
                         return false;
             return true;
         }
