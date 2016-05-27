@@ -97,8 +97,10 @@ namespace Thiner
         {
             List<int> indexes = Enumerable.Range(0, DEGREES).ToList();
             var combs = new Combinatorics.Collections.Combinations<int>(indexes, deg);
-            var lst = combs.ToList();
-            return lst;
+            List<List<int>> result = new List<List<int>>();
+            foreach (var item in combs)
+                result.Add(item.ToList());
+            return result;
         }
 
         private bool CanErase(List<int> comb, int deg)
