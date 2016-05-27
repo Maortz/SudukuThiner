@@ -14,6 +14,26 @@ namespace Thiner
         // y  Table[x,y]
         // y
 
+        public static implicit operator Table(int[,] matrix)
+        {
+            Table t = new Table();
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                {
+                    if (matrix[i, j] > 0 && matrix[i, j] < 10)
+                    {
+                        t.table[i, j].Num = matrix[i, j];
+                        t.table[i, j].IsReadonly = true;
+                    }
+                    else
+                    {
+                        t.table[i, j].Num = 0;
+                        t.table[i, j].IsReadonly = false;
+                    }
+                }
+            return t;
+        }
+
         private static void InitTable(Cell[,] table)
         {
             for (int x = 0; x < 9; x++)

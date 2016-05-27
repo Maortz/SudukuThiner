@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Thiner
 {
-    class SudukuThiner
+    public class SudukuThiner
     {
         private Table suduku = new Table();
         private List<Cell> to_removed_cells;
@@ -16,6 +16,15 @@ namespace Thiner
         public SudukuThiner(Cell[,] matrix)
         {
             Read(matrix);
+        }
+
+        public SudukuThiner()
+        {
+        }
+
+        public SudukuThiner(Table t)
+        {
+            suduku = t;
         }
 
         public void Read(Cell[,] matrix)

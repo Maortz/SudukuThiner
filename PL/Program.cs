@@ -10,6 +10,18 @@ namespace PL
     {
         static void Main(string[] args)
         {
+            int[,] mat = {
+                         {},
+                         {},
+                         {},
+                         {},
+                         {},
+                         {},
+                         {},
+                         {},
+                         {}
+                         }
+            var a = new Thiner.SudukuThiner();
         }
     }
 }
