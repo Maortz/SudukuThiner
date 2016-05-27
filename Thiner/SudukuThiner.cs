@@ -72,7 +72,7 @@ namespace Thiner
             int d;
             for (d = 0; d < DEGREES; d++)
             {
-                comb = GetCombinationbyIndex(to_removed_cells, d + 1);
+                comb = GetCombinationbyIndex(d + 1);
                 foreach (var c in comb)
                     if (CanErase(c, d))
                         foreach (var index in c)
@@ -93,19 +93,19 @@ namespace Thiner
                     matrix[i, j] = 0;
         }
 
-        private List<List<int>> GetCombinationbyIndex(List<Cell> to_removed_cells, int deg)
+        private List<List<int>> GetCombinationbyIndex(int deg)
         {
             throw new NotImplementedException();
         }
 
-        private bool CanErase(List<int> c, int deg)
+        private bool CanErase(List<int> comb, int deg)
         {
-            if (!IsAllDiffBetweenDegrees(c, deg))
+            if (!IsAllDiffBetweenDegrees(comb, deg))
                 return false;
             // Checking actualy if it would be solved.
             Table copy = new Table();
             suduku.CopyTo(ref copy);
-            foreach (var index in c)
+            foreach (var index in comb)
                 copy.ClearCell(to_removed_cells[index].Pos);
             return Suduku.IsSolvable(copy);
         }
