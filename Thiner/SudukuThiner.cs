@@ -11,6 +11,7 @@ namespace Thiner
         private Table suduku = new Table();
         private List<Cell> to_removed_cells;
         private int[,] matrix;
+        private int DEGREES;
 
         public SudukuThiner(Cell[,] matrix)
         {
@@ -39,10 +40,10 @@ namespace Thiner
             if (!Suduku.IsSolvable(suduku))
                 return;
             to_removed_cells = suduku.GetTableNumbersAsList();
-            int DEGREES = to_removed_cells.Count;
+            DEGREES = to_removed_cells.Count;
             matrix = new int[DEGREES, DEGREES];
-            InitMatrix(DEGREES);
-            int last_row = CalcMatrix(DEGREES);
+            InitMatrix();
+            int last_row = CalcMatrix();
             RemoveCells(last_row);
         }
 
@@ -64,57 +65,51 @@ namespace Thiner
             throw new NotImplementedException();
         }
 
-        private int CalcMatrix(int DEGREES)
+        private int CalcMatrix()
         {
             List<List<int>> comb;
             int d;
-            for (d = 1; d <= DEGREES; d++)
+            for (d = 0; d < DEGREES; d++)
             {
-                comb = GetCombinationbyIndex(to_removed_cells, d);
+                comb = GetCombinationbyIndex(to_removed_cells, d + 1);
                 foreach (var c in comb)
-                {
-                    if (CanErase(c))
-                    {
+                    if (CanErase(c, d))
                         foreach (var index in c)
-                        {
-                            matrix[d - 1, index]++;
-                        }
-                    }
-                }
-                if (!IsAnyDiffBetweenDegrees(d - 1))
+                            matrix[d, index]++;
+                if (!IsAnyDiffBetweenDegrees(d))
                 {
                     d++;
                     break;
                 }
             }
-            return d - 2;
+            return d - 1;
         }
 
-        private void InitMatrix(int len)
+        private void InitMatrix()
         {
-            for (int i = 0; i < len; i++)
-                for (int j = 0; j < len; j++)
+            for (int i = 0; i < DEGREES; i++)
+                for (int j = 0; j < DEGREES; j++)
                     matrix[i, j] = 0;
         }
 
-        private List<List<int>> GetCombinationbyIndex(List<Cell> to_removed_cells, int d)
+        private List<List<int>> GetCombinationbyIndex(List<Cell> to_removed_cells, int deg)
         {
             throw new NotImplementedException();
         }
 
-        private bool CanErase(List<int> c)
+        private bool CanErase(List<int> c, int deg)
         {
-            if (!IsAllDiffBetweenDegrees(c))
+            if (!IsAllDiffBetweenDegrees(c, deg))
                 return false;
             // Checking actualy if it would be solved.
             throw new NotImplementedException();
         }
 
-        private bool IsAllDiffBetweenDegrees(List<int> c)
+        private bool IsAllDiffBetweenDegrees(List<int> c, int deg)
         {
             foreach (var index in c)
             {
-                if (GetDiff(index) == 0)
+                if (GetDiff(index, deg) == 0)
                     return false;
             }
             return true;
@@ -124,17 +119,18 @@ namespace Thiner
         {
             // In the first degree, checks that not every one is 0.
             // Is there any difference between the *previous* degrees.
-
-            throw new NotImplementedException();
+            for (int i = 0; i < DEGREES; i++)
+                if (matrix[current_degree, i] > 0)
+                    return true;
+            return false;
         }
 
-        private int GetDiff(int index)
+        private int GetDiff(int index, int deg)
         {
-            // For the first degree, dont check.
-            // For the second degree, checking if the first is 0.
-            // For the others degrees, checking if the difference between 2 degrees before this level is 0.
-
-            throw new NotImplementedException();
+            if (deg == 0)
+                return 1;
+            else
+                return matrix[deg - 1, index];
         }
 
 
