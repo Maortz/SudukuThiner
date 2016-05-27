@@ -49,7 +49,7 @@ namespace Thiner
 
         private void RemoveCells(int last_row)
         {
-            List<int> to_remove_indexes = GetLitCells(last_row);
+            List<int> to_remove_indexes = GetCellsToRemove(last_row);
             foreach (var index in to_remove_indexes)
             {
                 to_removed_cells.RemoveAt(index);
@@ -60,8 +60,9 @@ namespace Thiner
             }
         }
 
-        private List<int> GetLitCells(int last_row)
+        private List<int> GetCellsToRemove(int last_row)
         {
+            // What remove from the matrix
             throw new NotImplementedException();
         }
 
@@ -102,16 +103,18 @@ namespace Thiner
             if (!IsAllDiffBetweenDegrees(c, deg))
                 return false;
             // Checking actualy if it would be solved.
-            throw new NotImplementedException();
+            Table copy = new Table();
+            suduku.CopyTo(ref copy);
+            foreach (var index in c)
+                copy.ClearCell(to_removed_cells[index].Pos);
+            return Suduku.IsSolvable(copy);
         }
 
         private bool IsAllDiffBetweenDegrees(List<int> c, int deg)
         {
             foreach (var index in c)
-            {
                 if (GetDiff(index, deg) == 0)
                     return false;
-            }
             return true;
         }
 
