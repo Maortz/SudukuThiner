@@ -95,7 +95,10 @@ namespace Thiner
 
         private List<List<int>> GetCombinationbyIndex(int deg)
         {
-            throw new NotImplementedException();
+            List<int> indexes = Enumerable.Range(0, DEGREES).ToList();
+            var combs = new Combinatorics.Collections.Combinations<int>(indexes, deg);
+            var lst = combs.ToList();
+            return lst;
         }
 
         private bool CanErase(List<int> comb, int deg)
