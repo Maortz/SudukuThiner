@@ -20,8 +20,11 @@ namespace PL
                          {},
                          {},
                          {}
-                         }
-            var a = new Thiner.SudukuThiner();
+                         };
+            var a = new Thiner.SudukuThiner(mat);
+            a.Print();
+            a.Run();
+            a.Print();
         }
     }
 }

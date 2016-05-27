@@ -17,20 +17,7 @@ namespace Thiner
         public static implicit operator Table(int[,] matrix)
         {
             Table t = new Table();
-            for (int i = 0; i < 9; i++)
-                for (int j = 0; j < 9; j++)
-                {
-                    if (matrix[i, j] > 0 && matrix[i, j] < 10)
-                    {
-                        t.table[i, j].Num = matrix[i, j];
-                        t.table[i, j].IsReadonly = true;
-                    }
-                    else
-                    {
-                        t.table[i, j].Num = 0;
-                        t.table[i, j].IsReadonly = false;
-                    }
-                }
+            t.Read(matrix);
             return t;
         }
 
@@ -89,6 +76,24 @@ namespace Thiner
                         break;
                 }
             }
+        }
+
+        public void Read(int[,] matrix)
+        {
+            for (int i = 0; i < 9; i++)
+                for (int j = 0; j < 9; j++)
+                {
+                    if (matrix[i, j] > 0 && matrix[i, j] < 10)
+                    {
+                        table[i, j].Num = matrix[i, j];
+                        table[i, j].IsReadonly = true;
+                    }
+                    else
+                    {
+                        table[i, j].Num = 0;
+                        table[i, j].IsReadonly = false;
+                    }
+                }
         }
 
         public void Read(Cell[,] cell_matrix)
