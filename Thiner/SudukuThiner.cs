@@ -62,8 +62,11 @@ namespace Thiner
 
         private List<int> GetCellsToRemove(int last_row)
         {
-            // What remove from the matrix
-            throw new NotImplementedException();
+            List<int> result = new List<int>();
+            for (int i = 0; i < DEGREES; i++)
+                if (matrix[last_row, i] > 0)
+                    result.Add(i);
+            return result;
         }
 
         private int CalcMatrix()
