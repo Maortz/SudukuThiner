@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Thiner
 {
-    class Cell
-    {
+    public class Cell
+    {   
         public int Num { get; set; }
+        public int Num1 { get; set; }
         public bool IsReadonly { get; set; }
         public readonly Position Pos;
 

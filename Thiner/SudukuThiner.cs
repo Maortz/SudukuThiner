@@ -37,9 +37,9 @@ namespace Thiner
             Action<Cell> p = (Cell c) =>
                 {
                     if (c.Num == 0)
-                        Console.WriteLine(" ");
+                        Console.Write(" ");
                     else
-                        Console.WriteLine(c.Num);
+                        Console.Write(c.Num);
                 };
             suduku.Print(p);
         }

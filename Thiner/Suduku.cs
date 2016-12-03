@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Thiner
 {
-    class Suduku
+    public class Suduku
     {
         public static bool IsSolvable(Table table)
         {
@@ -108,7 +108,7 @@ namespace Thiner
             Finish, Unsolvable, Running
         }
 
-        enum Direction
+        public enum Direction
         {
             FromBegining, FromLast
         }

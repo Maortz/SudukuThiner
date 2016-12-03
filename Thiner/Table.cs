@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Thiner
 {
-    class Table
+    public class Table
     {
         private Cell[,] table = new Cell[9,9];
         // 0 x x x x
@@ -163,8 +163,11 @@ namespace Thiner
         public void Print(Action<Cell> PrintOneCell)
         {
             for (int y = 0; y < 9; y++)
+            {
                 for (int x = 0; x < 9; x++)
-                    PrintOneCell(table[x,y]);
+                    PrintOneCell(table[x, y]);
+                Console.WriteLine();
+            }
         }
 
         public void CopyTo(ref Table another)
